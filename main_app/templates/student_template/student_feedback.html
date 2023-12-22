@@ -1,0 +1,55 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+
+                    {% include "main_app/form_template.html" with messages=messages  form=form button_text="Enviar"%}
+                </div>
+                <!-- /.card -->
+<div class="card card-dark">
+    <div class="card-header"><h3 class="card-title">{{page_title}}</h3>
+    </div>
+<div class="table p-2">
+
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Comentario</th>
+            <th>Respuesta</th>
+        <th>Creado en</th>
+        </tr>
+            {% for comentario in comentarios %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{comentario.comentario}}</td>
+              <td>
+                  
+                  {% if comentario.reply == "" %}
+                      <p class="badge badge-warning">Sin respuesta</p>
+                      {% else %}
+                      {{comentario.reply}}
+                  {% endif %}
+                      
+              </td>
+              <td>{{comentario.created_at}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

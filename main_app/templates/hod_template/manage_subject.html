@@ -1,0 +1,52 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Asignatura</th>
+                                    <th>Descripción</th>
+                                    <th>Docente</th>
+                                    <th>Curso</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for subject in subjects %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{subject.nombre}}</td>
+                                    <td>{{subject.descripción}}</td>
+                                    <td>{{subject.docente.admin}}</td>
+                                    <td>{{subject.curso.nombre}}</td>
+                                    
+                                    <td>
+                                        <a href="{% url 'edit_subject' subject.id %}" class="btn btn-info">Editar</a> -
+                                        <a href="{% url 'delete_subject' subject.id %}" onclick="return confirm('Estas seguro de eliminar esto ?')" class="btn btn-danger">Eliminar</a> 
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre completo</th>
+                                    <th>Email</th>
+                                    <th>Genero</th>
+                                    <th>Curso</th>
+                                    <th>Foto de perfil</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student in students %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{student.nombre}} {{student.apellido}}</td>
+                                    <td>{{student.email}}</td>
+                                    <td>{{student.genero}}</td>
+                                    <td>{{student.student.curso.nombre}}</td>
+                                    <td>
+                                        {% if student.imagen_de_perfil == ""  %}
+                                        No Image
+                                        {% else %}
+                                        <img class="img img-fluid mb-2" height="56" width="56"
+                                            src="{{student.imagen_de_perfil}}" alt="">
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td><a href="{% url 'edit_student' student.student.id %}" class="btn btn-info">Editar</a> -
+                                        <a href="{% url 'delete_student' student.student.id %}" class="btn btn-danger" onclick="return confirm('Are you sure about this ?')">Eliminar</a>
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
